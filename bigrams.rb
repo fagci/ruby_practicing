@@ -1,14 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-res = []
 ng_len = 2
 
-ARGF.read.downcase.split(/\W+/).map do |word|
-  (word.length - ng_len + 1).times do |i|
-    res.append(word[i, ng_len])
-  end
+b = ARGF.read.downcase.scan(/\w+/).map do |word|
+  word.chars.each_cons(ng_len).map &:join
 end
 
-sorted = res.tally.sort_by { |_, c| -c }.map(&:first)
-puts sorted
+puts b.flatten.tally.sort_by { |_, c| -c }.map(&:first)
