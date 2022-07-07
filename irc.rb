@@ -7,10 +7,10 @@ nick = 'fagci-ruby'
 
 client = TCPSocket.new 'irc.libera.chat', 6667
 
-client.puts "NICK #{nick}\r\n"
-client.puts "USER #{nick} * #{nick} :ruby bot\r\n"
-client.puts "JOIN #networking\r\n"
-client.puts "JOIN #bash\r\n"
+client.puts "NICK #{nick}"
+client.puts "USER #{nick} * #{nick} :ruby bot"
+client.puts "JOIN #networking"
+client.puts "JOIN #bash"
 
 while line = client.gets
   puts line
