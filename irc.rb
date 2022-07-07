@@ -14,8 +14,10 @@ client.puts "JOIN #bash\r\n"
 
 while line = client.gets
   puts line
-  p = line.split(/\s/)
-  client.puts line.sub('I', 'O') if p[0] == 'PING'
+
+  if line.start_with? 'PING'
+    client.puts line.sub('I', 'O')
+  end
 end
 
 client.close
