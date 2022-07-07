@@ -4,13 +4,14 @@
 require 'socket'
 
 nick = 'fagci-ruby'
+chats = %w[#networking #bash]
 
 client = TCPSocket.new 'irc.libera.chat', 6667
 
 client.puts "NICK #{nick}"
 client.puts "USER #{nick} * #{nick} :ruby bot"
-client.puts "JOIN #networking"
-client.puts "JOIN #bash"
+
+chats.each { |chat| client.puts "JOIN #{chat}" }
 
 while line = client.gets
   puts line
