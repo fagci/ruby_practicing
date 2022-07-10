@@ -13,12 +13,17 @@ client.puts "USER #{nick} * #{nick} :ruby bot"
 
 chats.each { |chat| client.puts "JOIN #{chat}" }
 
-while line = client.gets
-  puts line
+begin
+  while (line = client.gets)
+    puts line
 
-  if line.start_with? 'PING'
-    client.puts line.sub('I', 'O')
+    client.puts line.sub('I', 'O') if line.start_with? 'PING'
   end
+rescue Interrupt
+  puts 'Exiting'
 end
 
-client.close
+at_exit do
+  client.puts 'QUIT'
+  client.close
+end
