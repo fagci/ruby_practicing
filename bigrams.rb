@@ -3,8 +3,12 @@
 
 N = 2
 
-b = ARGF.read.downcase.scan(/\w+/).flat_map do |word|
-  word.chars.each_cons(N).map(&:join)
+def bigrams(text)
+  b = text.downcase.scan(/\w+/).flat_map do |word|
+    word.chars.each_cons(N).map(&:join)
+  end
+  b.tally.sort_by { |_, c| -c }.map(&:first)
 end
 
-puts b.tally.sort_by { |_, c| -c }.map(&:first)
+puts bigrams(ARGF.read)  if __FILE__ == $0
+
