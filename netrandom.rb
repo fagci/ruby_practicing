@@ -57,16 +57,13 @@ def gen_ip
   end
 end
 
-workers = (0..1024).map do
+workers = 1024.times.map do
   Thread.new do
     loop do
-      ip = gen_ip()
-      p ip
-      begin
-        Socket.tcp(ip, 80, connect_timeout: 1).close
-        puts "#{ip}:80"
-      rescue
-      end
+      ip = gen_ip
+      Socket.tcp(ip, 80, connect_timeout: 1).close
+      puts "#{ip}:80"
+    rescue StandardError
     end
   end
 end
